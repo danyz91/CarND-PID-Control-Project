@@ -1,6 +1,11 @@
 #ifndef PID_H
 #define PID_H
 
+#include <iostream>
+#include <limits>
+#include <numeric>
+#include <vector>
+
 class PID {
  public:
   /**
@@ -31,7 +36,6 @@ class PID {
    */
   double TotalError();
 
- private:
   /**
    * PID Errors
    */
@@ -41,10 +45,13 @@ class PID {
 
   /**
    * PID Coefficients
-   */ 
+   */
   double Kp;
   double Ki;
   double Kd;
+
+  double sum_cte;
+  double prev_cte;
 };
 
 #endif  // PID_H

@@ -1,7 +1,22 @@
-# CarND-Controls-PID
-Self-Driving Car Engineer Nanodegree Program
+[//]: # (Image References)
 
+[image1]: ./img/bp2.png "Behavior Planner" 
+
+# CarND-Controls-PID
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
+This repository contains all the code for the final project for the Control lessons in Udacity's Self-Driving Car Nanodegree.
 ---
+
+## Overview
+
+In this project the goal is to implement a PID algorithm to control a car running in the simulator. The goal is to keep the Cross Track Error as close as possible to zero.
+
+...
+
+...
+
+...
 
 ## Dependencies
 
@@ -16,17 +31,20 @@ Self-Driving Car Engineer Nanodegree Program
   * Mac: same deal as make - [install Xcode command line tools]((https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
 * [uWebSockets](https://github.com/uWebSockets/uWebSockets)
-  * Run either `./install-mac.sh` or `./install-ubuntu.sh`.
-  * If you install from source, checkout to commit `e94b6e1`, i.e.
-    ```
-    git clone https://github.com/uWebSockets/uWebSockets 
-    cd uWebSockets
-    git checkout e94b6e1
-    ```
-    Some function signatures have changed in v0.14.x. See [this PR](https://github.com/udacity/CarND-MPC-Project/pull/3) for more details.
-* Simulator. You can download these from the [project intro page](https://github.com/udacity/self-driving-car-sim/releases) in the classroom.
 
-Fellow students have put together a guide to Windows set-up for the project [here](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/files/Kidnapped_Vehicle_Windows_Setup.pdf) if the environment you have set up for the Sensor Fusion projects does not work for this project. There's also an experimental patch for windows in this [PR](https://github.com/udacity/CarND-PID-Control-Project/pull/3).
+## Installation & Run
+
+This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
+
+To run the simulator on Mac/Linux, first make the binary file executable with the following command:
+```shell
+sudo chmod u+x {simulator_file_name}
+```
+
+This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems : `install_ubuntu.sh` and `install_mac.sh`. 
+
+Once the install for uWebSocketIO is complete, the main program can be built and ran.
+ 
 
 ## Basic Build Instructions
 
@@ -35,64 +53,84 @@ Fellow students have put together a guide to Windows set-up for the project [her
 3. Compile: `cmake .. && make`
 4. Run it: `./pid`. 
 
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
-
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
 
 ## Code Style
 
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+Code is compliant with [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
 
-## Project Instructions and Rubric
+It is formatted following [clangformat specification](https://clang.llvm.org/docs/ClangFormat.html)
 
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
+## PID Implementation
 
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/e8235395-22dd-4b87-88e0-d108c5e5bbf4/concepts/6a4d8d42-6a04-4aa6-b284-1697c0fd6562)
-for instructions and the project rubric.
+The implementation of the PID algorithm is contained in the class `PID` defined in files [PID.h](./src/PID.h) and [PID.cpp](./src/PID.cpp).
 
-## Hints!
+The methods implementing the algorithm are:
 
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
+- `void Init(double Kp_, double Ki_, double Kd_)`
+  
+  ...
+  This method is defined at **lines 11-25** of PID.cpp file. 
+  
 
-## Call for IDE Profiles Pull Requests
+- `void UpdateError(double cte)`
+  
+  ...
+  This method is defined at **lines 27-38** of PID.cpp file. 
 
-Help your fellow students!
 
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
+- `double TotalError()`
+  
+  ...
+  This method is defined at **lines 40-45** of PID.cpp file. 
 
-However! I'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
 
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
+The file `main.cpp` contains the steps to read data from the simulator, execute the PID Control algorithm and send `steering wheel` and `throttle` commands to the simulator accordingly.
 
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
+In the current implementation there are **two PID control algorithms** applied to determine:
 
-Frankly, I've never been involved in a project with multiple IDE profiles
-before. I believe the best way to handle this would be to keep them out of the
-repo root to avoid clutter. My expectation is that most profiles will include
-instructions to copy files to a new location to get picked up by the IDE, but
-that's just a guess.
+- Steering wheel to apply to correct the Cross Track Error
+- Throttle value to follow a predefined target speed
 
-One last note here: regardless of the IDE used, every submitted project must
-still be compilable with cmake and make./
+Target speed is defined via pre-compiler declaration at **line 12** of main.cpp.
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+    #define MAX_SPEED 30  // MPH
+
+The steps in `main.cpp` are:
+
+1. **Determine Errors**: 
+  - Read Cross Track Error from the simulator for the steering wheel error. 
+  - Compute gap between current speed and `MAX_SPEED` for speed error.
+2. **Run PID algorithm**:
+  
+  Using the error, compute the correction to apply for steering and throttle.
+
+3. **Clamp values**:
+
+  Values determined are clamped between [-1, 1] for steering wheel and [0, 1] for throttle command
+
+4. **Send value**:
+
+  Values are sent to simulator. Wait for other data from the simulator and return to step 1.
+
+## PID Tuning
+
+In order to tune the PID parameters, manual tuning has been firstly chosen.
+
+The evaluation arose during this process and the final results are showed above.
+
+Manual tuning has proved to be effective for such task. 
+
+## Results
+
+
+## Future work
+
+Manual tuning has proved to be effective for such task. In more general cases two possible algorithm to try are:
+
+- [Twiddle]
+- [Stochastic Gradient Descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
+
+
+
+
 

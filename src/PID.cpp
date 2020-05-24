@@ -10,21 +10,36 @@ PID::~PID() {}
 
 void PID::Init(double Kp_, double Ki_, double Kd_) {
   /**
-   * TODO: Initialize PID coefficients (and errors, if needed)
+   * Initialize PID coefficients (and errors, if needed)
    */
+  p_error = std::numeric_limits<double>::max();
+  i_error = std::numeric_limits<double>::max();
+  d_error = std::numeric_limits<double>::max();
 
+  prev_cte = 0.0;
+  sum_cte = 0.0;
+
+  Kp = Kp_;
+  Ki = Ki_;
+  Kd = Kd_;
 }
 
 void PID::UpdateError(double cte) {
   /**
-   * TODO: Update PID errors based on cte.
+   * Update PID errors based on cte.
    */
+  double d_cte = cte - prev_cte;
+  sum_cte += cte;
+  p_error = -Kp * cte;
+  i_error = -Ki * sum_cte;
+  d_error = -Kd * d_cte;
 
+  prev_cte = cte;
 }
 
 double PID::TotalError() {
   /**
-   * TODO: Calculate and return the total error
+   * Calculate and return the total error
    */
-  return 0.0;  // TODO: Add your total error calc here!
+  return p_error + i_error + d_error;
 }
