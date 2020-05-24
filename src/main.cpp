@@ -41,26 +41,19 @@ string hasData(string s) {
 int main() {
   uWS::Hub h;
 
+  // Initialize the pid variable.
+
   PID steer_pid;
 
   steer_pid.Init(0.1, 0.0001, 2.0);
 
   PID speed_pid;
 
-  speed_pid.Init(0.1, 0.0001, 2.0);
+  speed_pid.Init(0.3, 0.0001, 2.0);
 
-  // Create and open a text file
-  std::ofstream out_steer_file("steer_vals.txt");
-  std::ofstream out_speed_file("speed_vals.txt");
-
-  int iteration = 0;
-  /**
-   * TODO: Initialize the pid variable.
-   */
-
-  h.onMessage([&steer_pid, &speed_pid, &out_steer_file, &out_speed_file,
-               &iteration](uWS::WebSocket<uWS::SERVER> ws, char *data,
-                           size_t length, uWS::OpCode opCode) {
+  h.onMessage([&steer_pid, &speed_pid](uWS::WebSocket<uWS::SERVER> ws,
+                                       char *data, size_t length,
+                                       uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -79,12 +72,10 @@ int main() {
           double angle = std::stod(j[1]["steering_angle"].get<string>());
           double steer_value;
           double speed_value;
+          // Compute speed error
           double speed_error = speed - MAX_SPEED;
-          /**
-           * Calculate steering value here, remember the steering value is
-           *   [-1, 1].
-           */
 
+          // Update steering and speed PID errors
           steer_pid.UpdateError(cte);
           speed_pid.UpdateError(speed_error);
 
@@ -107,12 +98,6 @@ int main() {
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-
-          // Write to the file
-          out_steer_file << iteration << " " << cte << std::endl;
-          out_speed_file << iteration << " " << speed_error << std::endl;
-          iteration++;
-
         }  // end "telemetry" if
       } else {
         // Manual driving
