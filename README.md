@@ -330,28 +330,27 @@ Parameter | Steering PID | Speed PID
 
 Here there are shown 3 videos of the final parametrization of the two controllers:
 
-- Target Speed = 30 MPH
+- **Target Speed = 30 MPH**
 
-  [![final](https://img.youtube.com/vi/AQ2UWnsamWw/0.jpg)](https://www.youtube.com/watch?v=AQ2UWnsamWw) 
-
-
-- Target Speed = 50 MPH
-
-  [![final](https://img.youtube.com/vi/AQ2UWnsamWw/0.jpg)](https://www.youtube.com/watch?v=AQ2UWnsamWw) 
-
-- Target Speed = 70 MPH
-
-  [![final](https://img.youtube.com/vi/AQ2UWnsamWw/0.jpg)](https://www.youtube.com/watch?v=AQ2UWnsamWw) 
+  [![final](https://img.youtube.com/vi/Vz5K1Fy5ZE4/0.jpg)](https://www.youtube.com/watch?v=Vz5K1Fy5ZE4) 
 
 
+- **Target Speed = 50 MPH**
 
+  [![final](https://img.youtube.com/vi/dRd4IjG1BiA/0.jpg)](https://www.youtube.com/watch?v=dRd4IjG1BiA) 
 
+- **Target Speed = 70 MPH**
+
+  [![final](https://img.youtube.com/vi/NV6xqEDX8hs/0.jpg)](https://www.youtube.com/watch?v=NV6xqEDX8hs) 
 
 ## Future work
 
 Manual tuning has proved to be effective for such task. In more general cases two possible algorithm to try are:
 
-- Twiddle Algorithm. Explained by Sebastian Thrun during the Udacity lesson, whose explanation video can be found on YouTube(https://www.youtube.com/watch?v=2uQ2BSzDvXs)
+- [Twiddle Algorithm](https://www.youtube.com/watch?v=2uQ2BSzDvXs)
+
+  Explained by Sebastian Thrun during the Udacity lesson, whose explanation video can be found on YouTube
+
 - [Stochastic Gradient Descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
 
 
